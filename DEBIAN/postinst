@@ -1,0 +1,14 @@
+#!/bin/bash
+
+APP_PATH="/Applications/permasigneriOS.app"
+
+if [ -d "$APP_PATH" ]; then
+    chown -R root:wheel "$APP_PATH"
+    chmod -R 755 "$APP_PATH"
+else
+    echo "Binary not found at $APP_PATH"
+fi
+
+echo "[*] reloading icon cache for springboard..."
+uicache -p "$APP_PATH"
+echo "[*] completed"
