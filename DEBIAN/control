@@ -8,4 +8,4 @@ Section: Applications
 Depends: dpkg, ldid
 Pre-Depends: firmware (>= 14.0)
 Architecture: iphoneos-arm
-depiction: https://github.com/powenn
+depiction: https://github.com/powenn/permasigneriOS
