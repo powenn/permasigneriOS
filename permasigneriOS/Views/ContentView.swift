@@ -11,13 +11,9 @@ struct ContentView: View {
     
     var body: some View {
         TabView{
-//            ExternalView()
-//                .tabItem({
-//                    Label("External", systemImage: "network")
-//                })
-            LocalView()
+            SignView()
                 .tabItem({
-                    Label("Local", systemImage: "folder.fill")
+                    Label("Sign", systemImage: "signature")
                 })
             AppInfoView()
                 .tabItem({

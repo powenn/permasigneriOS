@@ -17,15 +17,3 @@ func checkFilza() -> Bool {
     }
     return false
 }
-
-
-let AskToOpenInFilzaAkert = Alert(
-    title: Text("Done"),
-    message: Text("Export the file now ?"),
-    primaryButton: .default(Text("Okay")) {
-        
-    },
-    secondaryButton: .cancel()
-)
-
-

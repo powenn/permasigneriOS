@@ -21,7 +21,6 @@ struct AppInfoView: View {
             }
             Section(header: Text("Source Code")){
                 Link(destination: URL(string: "https://github.com/powenn/permasigneriOS")!, label: {
-                    
                     HStack{
                         Text("View on Github")
                         Spacer()
@@ -45,16 +44,18 @@ struct AppInfoView: View {
                 Alert(title: Text("Ohh no"), message: Text("You need Filza to view the file"),dismissButton: .default(Text("Okay")))
             })
             
-            
             Button(action: {
                 try? FileManager.default.removeItem(at: OutputPackageDirectory)
+                try? FileManager.default.removeItem(at: tmpDirectory)
                 cleanFolderDone.toggle()
+                setPathAndTmp()
             }, label: {
                 Text("Clear All Packages")
             })
             .alert(isPresented: $cleanFolderDone,content: {
                 Alert(title: Text("Done"), message: Text("All packages in Package Folder have been removed"), dismissButton: .default(Text("Okay")))
             })
+            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS"), content: {})
         }
     }
 }
