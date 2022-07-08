@@ -46,16 +46,15 @@ struct AppInfoView: View {
             
             Button(action: {
                 try? FileManager.default.removeItem(at: OutputPackageDirectory)
-                try? FileManager.default.removeItem(at: tmpDirectory)
-                cleanFolderDone.toggle()
                 setPathAndTmp()
+                cleanFolderDone.toggle()
             }, label: {
                 Text("Clear All Packages")
             })
             .alert(isPresented: $cleanFolderDone,content: {
                 Alert(title: Text("Done"), message: Text("All packages in Package Folder have been removed"), dismissButton: .default(Text("Okay")))
             })
-            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS"), content: {})
+            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS\n\nPlease be patient during the sign process,\nespecially signing a complex app with\nlots of frameworks"), content: {})
         }
     }
 }

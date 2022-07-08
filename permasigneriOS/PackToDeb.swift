@@ -12,7 +12,6 @@ class Progress: ObservableObject {
     private init() { }
     static let shared = Progress()
     
-    @Published var ProgressDescribe = ""
     @Published var OutputDebFilePath = ""
     
     func resetDebFolder() {
@@ -112,6 +111,55 @@ class Progress: ObservableObject {
         AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
     }
     
+    func CheckFrameWorkDirExist() {
+        // If exist .framework or .dylib then sign them
+        let FrameWorkFolderPath = DebApplicationsDirectory.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Frameworks").path
+//        var frameworkDir: [String] // contents of example.framework
+        var frameworksWillSign: [String] = [] // ex: test.framework in Frameworks
+//        var frameworkFilesWillSign: [String] = [] // all files inside Frameworks should sign
+        if FileManager.default.fileExists(atPath: FrameWorkFolderPath) {
+            
+            let Contents = try? FileManager.default.contentsOfDirectory(atPath: FrameWorkFolderPath)
+            for content in Contents! {
+                if content.hasSuffix(".framework") {
+                    frameworksWillSign.append(content)
+                }
+                if content.hasSuffix(".dylib"){
+                    AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath.appending(content))")
+                }
+            }
+//            for frameworkName in frameworksWillSign {
+//                frameworkDir = try! FileManager.default.contentsOfDirectory(atPath: FrameWorkFolderPath.appending(frameworkName))
+//                for file in frameworkDir {
+//                    if file.contains(".") == false {
+//                        frameworkFilesWillSign.append("\(frameworkName)/\(file)")
+//                    }
+//                }
+//
+//            for file in frameworkFilesWillSign {
+//                AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath.appending(file))")
+//
+//            }
+                
+//                print("This loop works fine")
+                
+                ///  problem
+//                for content in frameworkDir! {
+//
+//                }
+                ///
+//                    if content.contains(".") == false {
+//                        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath.appending("\(frameworkName)/\(content)"))")
+//                        AuxiliaryExecute.local.bash(command: "chmod 0755 \(FrameWorkFolderPath.appending("\(frameworkName)/\(content)"))")
+//                    }
+//                }
+                
+                
+            }
+        }
+    }
+    
+    
     func PackToDeb() {
         AuxiliaryExecute.local.bash(command: "dpkg-deb -Zxz --root-owner-group -b /var/mobile/Documents/permasigneriOS/tmp/deb /var/mobile/Documents/permasigneriOS/Package/\(CheckApp.shared.fileName.replacingOccurrences(of: ".ipa", with: "")).deb")
     }
@@ -131,6 +179,7 @@ class Progress: ObservableObject {
         copyAppContent()
         ChangeDebPermisson()
         SignAppWithLdid()
+        CheckFrameWorkDirExist()
         PackToDeb()
     }
 }

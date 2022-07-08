@@ -20,12 +20,12 @@ class CheckApp: ObservableObject {
     @Published var fileName:String = ""
     @Published var filePath:String = ""
     
-    @Published var destination = URL(fileURLWithPath: "")
-    @Published var fileDir = URL(fileURLWithPath: "")
+    var destination = URL(fileURLWithPath: "")
+    var fileDir = URL(fileURLWithPath: "")
     
     // App Info vars
-    @Published var config: [String: Any]?
-    @Published var InfoPlistPath = URL(string: "")
+    var config: [String: Any]?
+    var InfoPlistPath = URL(string: "")
     @Published var app_name:String = ""
     @Published var app_bundle:String = ""
     @Published var app_version:String = ""

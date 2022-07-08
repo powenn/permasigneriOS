@@ -28,7 +28,7 @@ struct SignView: View {
         checkapp.fileName = ""
         alertTitle = title
         alertMeaasge = message
-        checkapp.removeInvalidFile()
+//        checkapp.removeInvalidFile()
         showAlert.toggle()
     }
     
