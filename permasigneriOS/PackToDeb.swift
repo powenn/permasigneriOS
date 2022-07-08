@@ -115,7 +115,6 @@ class Progress: ObservableObject {
         // If exist .framework or .dylib then sign them
         let FrameWorkFolderPath = DebApplicationsDirectory.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Frameworks").path
         var frameworkBinaryName:String = ""
-//        var frameworkFilesWillSign: [String] = [] // all files inside Frameworks should sign
         if FileManager.default.fileExists(atPath: FrameWorkFolderPath) {
             
             let Contents = try? FileManager.default.contentsOfDirectory(atPath: FrameWorkFolderPath)
