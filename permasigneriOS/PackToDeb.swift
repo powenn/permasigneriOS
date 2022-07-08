@@ -84,8 +84,15 @@ class Progress: ObservableObject {
         if let entitlementsFileURL = Bundle.main.url(forResource: "entitlements", withExtension: ".plist") {
             try? FileManager.default.copyItem(at: entitlementsFileURL, to: tmpDirectory.appendingPathComponent("entitlements.plist"))
             
-            //
+            let plistDict = NSMutableDictionary(contentsOfFile: tmpDirectory.appendingPathComponent("entitlements.plist").path)
+            plistDict!.setObject(CheckApp.shared.app_bundle, forKey: "application-identifier" as NSCopying)
+            plistDict!.write(toFile: tmpDirectory.appendingPathComponent("entitlements.plist").path, atomically: false)
             
+            plistDict!.setObject(["group.\(CheckApp.shared.app_bundle)"], forKey: "com.apple.security.application-groups" as NSCopying)
+            plistDict!.write(toFile: tmpDirectory.appendingPathComponent("entitlements.plist").path, atomically: false)
+            
+            plistDict!.setObject([CheckApp.shared.app_bundle], forKey: "keychain-access-groups" as NSCopying)
+            plistDict!.write(toFile: tmpDirectory.appendingPathComponent("entitlements.plist").path, atomically: false)
         }
     }
     
