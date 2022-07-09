@@ -2,7 +2,7 @@
 
 permasigner on iOS
 
-You can check [permasigner](https://github.com/itsnebulalol/permasigner/blob/main/README.md?plain=1) for details about what is permanet sign
+You can check [permasigner](https://github.com/itsnebulalol/permasigner) for details about what is permanet sign
 
 
 ## Credits 
