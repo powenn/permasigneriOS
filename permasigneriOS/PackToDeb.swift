@@ -108,7 +108,8 @@ class Progress: ObservableObject {
     }
     
     func SignAppWithLdid() {
-        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
+        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
+        AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
     }
     
     func CheckFrameWorkDirExist() {
@@ -121,10 +122,12 @@ class Progress: ObservableObject {
             for content in Contents! {
                 if content.hasSuffix(".framework") {
                     frameworkBinaryName = content.replacingOccurrences(of: ".framework", with: "")
-                    AuxiliaryExecute.local.bash(command: "ldid -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath.appending("\(content)/\(frameworkBinaryName)"))")
+                    AuxiliaryExecute.local.bash(command: "ldid -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)/\(frameworkBinaryName)")
+                    AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)/\(frameworkBinaryName)")
                 }
                 if content.hasSuffix(".dylib"){
-                    AuxiliaryExecute.local.bash(command: "ldid -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath.appending(content))")
+                    AuxiliaryExecute.local.bash(command: "ldid -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
+                    AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
                 }
             }
         }
