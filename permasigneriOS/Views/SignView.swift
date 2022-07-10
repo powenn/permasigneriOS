@@ -32,7 +32,7 @@ struct SignView: View {
     }
     
     var body: some View {
-        NavigationView {
+//        NavigationView {
             VStack {
                 Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No ipa file selected")
                 Button(action: {isImporting.toggle()}, label: {Text("Select File")})
@@ -100,10 +100,11 @@ struct SignView: View {
                 .opacity(checkapp.fileName == "" ? 0.6 : 1.0)
                 .buttonStyle(SignButtonStyle())
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
             .padding()
-        }
+//            .navigationBarTitle("")
+//            .navigationBarHidden(true)
+//            .padding()
+//        }
     }
 }
 
