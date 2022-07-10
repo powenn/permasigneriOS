@@ -108,18 +108,18 @@ class Progress: ObservableObject {
     }
     
     func SignAppWithLdid() {
-        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
+        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
         AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
         
         // ldid sign example.app
-        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
+        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
         
     }
     
     func CheckFrameWorkDirExist() {
         // If exist .framework or .dylib then sign them
         let FrameWorkFolderPath = DebApplicationsDirectory.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Frameworks").path
-        var frameworkBinaryName:String = ""
+//        var frameworkBinaryName:String = ""
         if FileManager.default.fileExists(atPath: FrameWorkFolderPath) {
             
             let Contents = try? FileManager.default.contentsOfDirectory(atPath: FrameWorkFolderPath)
@@ -130,7 +130,7 @@ class Progress: ObservableObject {
 //                    AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)/\(frameworkBinaryName)")
 //                }
                 if content.hasSuffix(".dylib"){
-                    AuxiliaryExecute.local.bash(command: "ldid -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
+                    AuxiliaryExecute.local.bash(command: "ldid -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
                     AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
                 }
             }
