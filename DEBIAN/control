@@ -5,7 +5,7 @@ Author: Powen <powen0966091716@gmail.com>
 Maintainer: Powen <powen0966091716@gmail.com>
 Version: @@VERSION@@
 Section: Applications
-Depends: dpkg, ldid
+Depends: dpkg, ldid , bash
 Pre-Depends: firmware (>= 14.0)
 Architecture: iphoneos-arm
 depiction: https://github.com/powenn/permasigneriOS
