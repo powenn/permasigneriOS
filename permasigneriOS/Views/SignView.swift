@@ -21,9 +21,7 @@ struct SignView: View {
     
     @State var showInFilzaAlert:Bool = false
     @State var canShowinFilza:Bool = false
-    
-    @State var IamProgressing = false
-    
+        
     func signFailedAlert(title:String, message:String) {
         checkapp.fileName = ""
         alertTitle = title
@@ -32,7 +30,6 @@ struct SignView: View {
     }
     
     var body: some View {
-//        NavigationView {
             VStack {
                 Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No ipa file selected")
                 Button(action: {isImporting.toggle()}, label: {Text("Select File")})
@@ -72,7 +69,6 @@ struct SignView: View {
                     .padding()
                 
                 Button(action: {
-                    IamProgressing = true
                     progress.permanentSignButtonFunc()
                     if progress.CheckDebBuild() {
                         if checkFilza() {
@@ -101,10 +97,6 @@ struct SignView: View {
                 .buttonStyle(SignButtonStyle())
             }
             .padding()
-//            .navigationBarTitle("")
-//            .navigationBarHidden(true)
-//            .padding()
-//        }
     }
 }
 

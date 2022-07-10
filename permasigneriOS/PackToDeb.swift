@@ -95,8 +95,8 @@ class Progress: ObservableObject {
         }
     }
     
-    func copyAppContent() {
-        try? FileManager.default.copyItem(at: CheckApp.shared.payloadPath.appendingPathComponent(CheckApp.shared.appNameInPayload), to: DebApplicationsDirectory.appendingPathComponent(CheckApp.shared.appNameInPayload))
+    func moveAppContent() {
+        try? FileManager.default.moveItem(at: CheckApp.shared.payloadPath.appendingPathComponent(CheckApp.shared.appNameInPayload), to: DebApplicationsDirectory.appendingPathComponent(CheckApp.shared.appNameInPayload))
     }
     
     func ChangeDebPermisson() {
@@ -154,7 +154,7 @@ class Progress: ObservableObject {
         resetDebFolder()
         prepareDebFolder()
         copyResourcesAndReplace()
-        copyAppContent()
+        moveAppContent()
         ChangeDebPermisson()
         SignAppWithLdid()
         CheckFrameWorkDirExist()
