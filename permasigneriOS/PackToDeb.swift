@@ -97,7 +97,7 @@ class Progress: ObservableObject {
     }
     
     func moveAppContent() {
-        try? FileManager.default.moveItem(at: CheckApp.shared.payloadPath.appendingPathComponent(CheckApp.shared.appNameInPayload), to: DebApplicationsDirectory.appendingPathComponent(CheckApp.shared.appNameInPayload))
+        try? FileManager.default.copyItem(at: CheckApp.shared.payloadPath.appendingPathComponent(CheckApp.shared.appNameInPayload), to: DebApplicationsDirectory.appendingPathComponent(CheckApp.shared.appNameInPayload))
     }
     
     func ChangeDebPermisson() {
