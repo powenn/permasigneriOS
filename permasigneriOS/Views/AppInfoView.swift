@@ -29,6 +29,9 @@ struct AppInfoView: View {
                             .frame(width: 32.0, height: 32.0, alignment: .leading)
                     }
                 })
+                Link(destination: URL(string: "https://github.com/powenn/permasigneriOS/issues?q=")!, label: {
+                        Text("Check issues on Github")
+                })
             }
             Button(action: {
                 if !checkFilza() {
@@ -54,7 +57,7 @@ struct AppInfoView: View {
             .alert(isPresented: $cleanFolderDone,content: {
                 Alert(title: Text("Done"), message: Text("All packages in Package Folder have been removed"), dismissButton: .default(Text("Okay")))
             })
-            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS\n\nPlease be patient during the sign process,\nespecially signing a complex app with\nlots of frameworks"), content: {})
+            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS\n\nPlease be patient during the sign process,\nespecially signing a complex app with\nlots of frameworks\n\nIf having problems, please check Github issues before asking\n\n This is iOS ported of itsnebulalol's permasigner"), content: {})
         }
     }
 }

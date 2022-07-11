@@ -74,6 +74,7 @@ struct SignView: View {
                         if checkFilza() {
                             canShowinFilza = true
                         } else { canShowinFilza = false }
+                        checkapp.fileName = ""
                         showInFilzaAlert.toggle()
                         
                     } else {
