@@ -1,23 +1,25 @@
 {
-  "pins" : [
-    {
-      "identity" : "auxiliaryexecute",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/Lakr233/AuxiliaryExecute",
-      "state" : {
-        "revision" : "baed197de469ebfc0aaccc6074ad8a98673cebe9",
-        "version" : "1.3.0"
+  "object": {
+    "pins": [
+      {
+        "package": "AuxiliaryExecute",
+        "repositoryURL": "https://github.com/Lakr233/AuxiliaryExecute",
+        "state": {
+          "branch": null,
+          "revision": "baed197de469ebfc0aaccc6074ad8a98673cebe9",
+          "version": "1.3.0"
+        }
+      },
+      {
+        "package": "ZipArchive",
+        "repositoryURL": "https://github.com/ZipArchive/ZipArchive.git",
+        "state": {
+          "branch": null,
+          "revision": "38e0ce0598e06b034271f296a8e15b149c91aa19",
+          "version": "2.4.3"
+        }
       }
-    },
-    {
-      "identity" : "ziparchive",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/ZipArchive/ZipArchive.git",
-      "state" : {
-        "revision" : "38e0ce0598e06b034271f296a8e15b149c91aa19",
-        "version" : "2.4.3"
-      }
-    }
-  ],
-  "version" : 2
+    ]
+  },
+  "version": 1
 }

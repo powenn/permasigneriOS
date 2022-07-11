@@ -29,6 +29,21 @@ struct SignView: View {
         showAlert.toggle()
     }
     
+    private func finish() {
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            if progress.CheckDebBuild() {
+                if checkFilza() {
+                    canShowinFilza = true
+                } else { canShowinFilza = false }
+                checkapp.fileName = ""
+                showInFilzaAlert.toggle()
+                
+            } else {
+                signFailedAlert(title: "Sign Failed", message: "Please try others iPA files")
+            }
+        }
+    }
+    
     var body: some View {
             VStack {
                 Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No ipa file selected")
@@ -69,16 +84,9 @@ struct SignView: View {
                     .padding()
                 
                 Button(action: {
-                    progress.permanentSignButtonFunc()
-                    if progress.CheckDebBuild() {
-                        if checkFilza() {
-                            canShowinFilza = true
-                        } else { canShowinFilza = false }
-                        checkapp.fileName = ""
-                        showInFilzaAlert.toggle()
-                        
-                    } else {
-                        signFailedAlert(title: "Sign Failed", message: "Please try others iPA files")
+                    DispatchQueue.global(qos: .userInitiated).async {
+                        progress.permanentSignButtonFunc()
+                        finish()
                     }
                 }, label: {Text("Permanent sign")})
                 .alert(isPresented: $showInFilzaAlert ){

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6AFB2B2A287C9D77004411B2 /* CreditsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFB2B29287C9D77004411B2 /* CreditsView.swift */; };
 		B57382972874162300133E34 /* permasigneriOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57382962874162300133E34 /* permasigneriOSApp.swift */; };
 		B57382992874162300133E34 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57382982874162300133E34 /* ContentView.swift */; };
 		B573829B2874162700133E34 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B573829A2874162700133E34 /* Assets.xcassets */; };
@@ -30,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6AFB2B29287C9D77004411B2 /* CreditsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreditsView.swift; sourceTree = "<group>"; };
 		B57382932874162300133E34 /* permasigneriOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = permasigneriOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B57382962874162300133E34 /* permasigneriOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = permasigneriOSApp.swift; sourceTree = "<group>"; };
 		B57382982874162300133E34 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -128,6 +130,7 @@
 			children = (
 				B57382982874162300133E34 /* ContentView.swift */,
 				B57382B528741A4A00133E34 /* SignView.swift */,
+				6AFB2B29287C9D77004411B2 /* CreditsView.swift */,
 				B57382C8287447EB00133E34 /* AppInfoView.swift */,
 			);
 			path = Views;
@@ -218,6 +221,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B57382D328751D0E00133E34 /* DirectoryPath.swift in Sources */,
+				6AFB2B2A287C9D77004411B2 /* CreditsView.swift in Sources */,
 				B57382D52875586D00133E34 /* CheckApp.swift in Sources */,
 				B5A1F77E2876A9BC002176A4 /* OpenInFilza.swift in Sources */,
 				B57382B628741A4A00133E34 /* SignView.swift in Sources */,
@@ -353,7 +357,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"permasigneriOS/Preview Content\"";
 				DEVELOPMENT_TEAM = L4LN9U3ZS7;
 				ENABLE_PREVIEWS = YES;
@@ -386,7 +390,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 7;
+				CURRENT_PROJECT_VERSION = 8;
 				DEVELOPMENT_ASSET_PATHS = "\"permasigneriOS/Preview Content\"";
 				DEVELOPMENT_TEAM = L4LN9U3ZS7;
 				ENABLE_PREVIEWS = YES;

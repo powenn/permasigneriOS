@@ -13,6 +13,7 @@ class Progress: ObservableObject {
     static let shared = Progress()
     
     @Published var OutputDebFilePath = ""
+    @Published var Percent = 1.0
     
     func resetDebFolder() {
         try? FileManager.default.removeItem(at: tmpDirectory.appendingPathComponent("deb"))
@@ -119,16 +120,21 @@ class Progress: ObservableObject {
     func CheckFrameWorkDirExist() {
         // If exist .framework or .dylib then sign them
         let FrameWorkFolderPath = DebApplicationsDirectory.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Frameworks").path
-//        var frameworkBinaryName:String = ""
+        var frameworkBinaryName:String = ""
         if FileManager.default.fileExists(atPath: FrameWorkFolderPath) {
             
             let Contents = try? FileManager.default.contentsOfDirectory(atPath: FrameWorkFolderPath)
             for content in Contents! {
-//                if content.hasSuffix(".framework") {
-//                    frameworkBinaryName = content.replacingOccurrences(of: ".framework", with: "")
-//                    AuxiliaryExecute.local.bash(command: "ldid -Upassword -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)/\(frameworkBinaryName)")
-//                    AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)/\(frameworkBinaryName)")
-//                }
+                if content.hasSuffix(".framework") {
+                    frameworkBinaryName = content.replacingOccurrences(of: ".framework", with: "")
+
+                    
+                    if FileManager.default.fileExists(atPath: FrameWorkFolderPath.appending("\(content)/\(frameworkBinaryName)")) {
+                        AuxiliaryExecute.local.bash(command: "ldid -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath)/\(content)/\(frameworkBinaryName)")
+                    }
+                    
+                    
+                }
                 if content.hasSuffix(".dylib"){
                     AuxiliaryExecute.local.bash(command: "ldid -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
                     AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/Frameworks/\(content)")
@@ -151,13 +157,30 @@ class Progress: ObservableObject {
     }
     
     func permanentSignButtonFunc() {
-        resetDebFolder()
-        prepareDebFolder()
-        copyResourcesAndReplace()
-        moveAppContent()
-        ChangeDebPermisson()
-        SignAppWithLdid()
-        CheckFrameWorkDirExist()
-        PackToDeb()
-    }
+            Percent = 0.0
+            resetDebFolder()
+            
+            Percent += 0.125
+            prepareDebFolder()
+            
+            Percent += 0.125
+            copyResourcesAndReplace()
+            
+            Percent += 0.125
+            moveAppContent()
+            
+            Percent += 0.125
+            ChangeDebPermisson()
+            
+            Percent += 0.125
+            SignAppWithLdid()
+            
+            Percent += 0.125
+            CheckFrameWorkDirExist()
+            
+            Percent += 0.125
+            PackToDeb()
+            
+            Percent = 1.0
+        }
 }

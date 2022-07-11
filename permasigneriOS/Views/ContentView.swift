@@ -17,7 +17,11 @@ struct ContentView: View {
                 })
             AppInfoView()
                 .tabItem({
-                    Label("AppInfo", systemImage: "info.circle.fill")
+                    Label("App Info", systemImage: "info.circle.fill")
+                })
+            CreditsView()
+                .tabItem({
+                    Label("Credits", systemImage: "person.3.fill")
                 })
         }
         .onAppear(perform: {
