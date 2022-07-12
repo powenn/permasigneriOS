@@ -9,6 +9,10 @@ Or add the [Repo](https://powenn.github.io/PowenRepo/) to package manager
 You can check [permasigner](https://github.com/itsnebulalol/permasigner) for details about what is permanet sign
 
 
+## Contributors
+
+[Contributors List](https://github.com/powenn/permasigneriOS/graphs/contributors)
+
 ## Credits 
 
 - [Linus Henze](https://github.com/LinusHenze) for the bug
