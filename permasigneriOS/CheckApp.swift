@@ -62,7 +62,7 @@ class CheckApp: ObservableObject {
                     app_name = config?["CFBundleName"] as! String
                     app_bundle = config?["CFBundleIdentifier"] as! String
                     app_version = config?["CFBundleShortVersionString"] as! String
-                    app_min_ios = config?["MinimumOSVersion"] as! String
+                    app_min_ios = config?["MinimumOSVersion"] as! String? ?? "14.0"
                     app_author = app_bundle.components(separatedBy: ".")[1]
                     validInfoPlist = true
                 } else {
