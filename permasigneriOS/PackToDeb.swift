@@ -13,7 +13,8 @@ class Progress: ObservableObject {
     static let shared = Progress()
     
     @Published var OutputDebFilePath = ""
-    @Published var Percent = 1.0
+//    @Published var Percent = 1.0
+    @Published var ProgressingDescribe = ""
     
     func resetDebFolder() {
         try? FileManager.default.removeItem(at: tmpDirectory.appendingPathComponent("deb"))
@@ -105,7 +106,15 @@ class Progress: ObservableObject {
         AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/DEBIAN/postrm")
         AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/DEBIAN/postinst")
         // app_executable
-        AuxiliaryExecute.local.bash(command: "chmod -R 04755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
+        
+        
+        
+//        AuxiliaryExecute.local.bash(command: "chmod -R 04755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
+        
+        
+        
+        AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
+
     }
     
     func SignAppWithLdid() {
@@ -127,7 +136,7 @@ class Progress: ObservableObject {
             for content in Contents! {
                 if content.hasSuffix(".framework") {
                     frameworkBinaryName = content.replacingOccurrences(of: ".framework", with: "")
-
+                    
                     
                     if FileManager.default.fileExists(atPath: FrameWorkFolderPath.appending("\(content)/\(frameworkBinaryName)")) {
                         AuxiliaryExecute.local.bash(command: "ldid -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath)/\(content)/\(frameworkBinaryName)")
@@ -157,30 +166,39 @@ class Progress: ObservableObject {
     }
     
     func permanentSignButtonFunc() {
-            Percent = 0.0
-            resetDebFolder()
-            
-            Percent += 0.125
-            prepareDebFolder()
-            
-            Percent += 0.125
-            copyResourcesAndReplace()
-            
-            Percent += 0.125
-            copyAppContent()
-            
-            Percent += 0.125
-            ChangeDebPermisson()
-            
-            Percent += 0.125
-            SignAppWithLdid()
-            
-            Percent += 0.125
-            CheckFrameWorkDirExist()
-            
-            Percent += 0.125
-            PackToDeb()
-            
-            Percent = 1.0
-        }
+//        Percent = 0.0
+        ProgressingDescribe = "[1/8] Clearing folder"
+        resetDebFolder()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[2/8] Preparing folder"
+        prepareDebFolder()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[3/8] Copying Resources"
+        copyResourcesAndReplace()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[4/8] Copying app contents"
+        copyAppContent()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[5/8] Setting permissions"
+        ChangeDebPermisson()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[6/8] Signing with ldid"
+        SignAppWithLdid()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[7/8] Checking frameworks"
+        CheckFrameWorkDirExist()
+        
+//        Percent += 0.125
+        ProgressingDescribe = "[8/8] Packing to deb"
+        PackToDeb()
+        
+        ProgressingDescribe = ""
+//        Percent = 1.0
+    }
 }

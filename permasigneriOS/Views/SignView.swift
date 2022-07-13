@@ -94,7 +94,7 @@ struct SignView: View {
                         }
                     }
                 }
-            }, label: {Text("Permanent sign")})
+            }, label: {Text(progress.ProgressingDescribe == "" ? "Permanent sign" : progress.ProgressingDescribe)})
             .alert(isPresented: $showInFilzaAlert ){
                 Alert(
                     title: Text(canShowinFilza ? "Done" : "Ohh no"),
