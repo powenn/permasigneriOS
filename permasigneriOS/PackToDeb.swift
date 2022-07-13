@@ -96,7 +96,7 @@ class Progress: ObservableObject {
         }
     }
     
-    func moveAppContent() {
+    func copyAppContent() {
         try? FileManager.default.copyItem(at: CheckApp.shared.payloadPath.appendingPathComponent(CheckApp.shared.appNameInPayload), to: DebApplicationsDirectory.appendingPathComponent(CheckApp.shared.appNameInPayload))
     }
     
@@ -167,7 +167,7 @@ class Progress: ObservableObject {
             copyResourcesAndReplace()
             
             Percent += 0.125
-            moveAppContent()
+            copyAppContent()
             
             Percent += 0.125
             ChangeDebPermisson()
