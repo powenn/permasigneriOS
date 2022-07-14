@@ -12,7 +12,7 @@ class Progress: ObservableObject {
     private init() { }
     static let shared = Progress()
     
-    @Published var OutputDebFilePath = ""
+    var OutputDebFilePath = ""
 //    @Published var Percent = 1.0
     @Published var ProgressingDescribe = ""
     @Published var CustomDebDescription = ""

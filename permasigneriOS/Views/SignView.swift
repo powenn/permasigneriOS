@@ -81,14 +81,14 @@ struct SignView: View {
             }
             .padding()
             
-            Button(action: {
-                ShowCustomInfo.toggle()
-            }, label: {
-                Text("Custom Info")
-            }).sheet(isPresented: $ShowCustomInfo, content: {
-                CustomInfoView()
-            }).disabled(checkapp.fileName == "" || progress.ProgressingDescribe != "" || isImporting)
-            
+//            Button(action: {
+//                ShowCustomInfo.toggle()
+//            }, label: {
+//                Text("Custom Info")
+//            }).sheet(isPresented: $ShowCustomInfo, content: {
+//                CustomInfoView()
+//            }).disabled(checkapp.fileName == "" || progress.ProgressingDescribe != "" || isImporting)
+
             Button(action: {
                 DispatchQueue.global(qos: .userInitiated).async {
                     progress.permanentSignButtonFunc()
@@ -134,42 +134,41 @@ struct SignView: View {
 }
 
 
-struct CustomInfoView: View {
-    @StateObject var checkapp: CheckApp = .shared
-    @StateObject var progress: Progress = .shared
-    @Environment(\.presentationMode) var presentationMode
-    
-    var body: some View {
-        VStack{
-            VStack(alignment: .leading) {
-                Text("Customize App Bundle")
-                TextField("App Bundle", text: $checkapp.app_bundle)
-                    .textFieldStyle(.roundedBorder)
-                Text("Customize deb file description\n( Leave blank to use default )")
-                TextField("Description", text: $progress.CustomDebDescription)
-                    .textFieldStyle(.roundedBorder)
-                Text("You can click TextField to dismiss keyboard")
-                    .font(.footnote)
-                    .foregroundColor(.gray)
-            }.padding()
-            Button(action: {
-                self.presentationMode.wrappedValue.dismiss()
-            }, label: {
-                Text("Done")
-            }).padding()
-        }
-        .padding()
-        .onTapGesture {
-            hideKeyboard()
-        }
-    }
-}
+//struct CustomInfoView: View {
+//    @StateObject var checkapp: CheckApp = .shared
+//    @StateObject var progress: Progress = .shared
+//    @Environment(\.presentationMode) var presentationMode
+//
+//    var body: some View {
+//        VStack{
+//            VStack(alignment: .leading) {
+//                Text("Customize App Bundle")
+//                TextField("App Bundle", text: $checkapp.app_bundle)
+//                    .textFieldStyle(.roundedBorder)
+//                Text("Customize deb file description\n( Leave blank to use default )")
+//                TextField("Description", text: $progress.CustomDebDescription)
+//                    .textFieldStyle(.roundedBorder)
+//                Text("You can click TextField to dismiss keyboard")
+//                    .font(.footnote)
+//                    .foregroundColor(.gray)
+//            }.padding()
+//            Button(action: {
+//                self.presentationMode.wrappedValue.dismiss()
+//            }, label: {
+//                Text("Done")
+//            }).padding()
+//        }
+//        .padding()
+//        .onTapGesture {
+//            hideKeyboard()
+//        }
+//    }
+//}
 
 
 struct SignView_Previews: PreviewProvider {
     static var previews: some View {
         SignView()
-        CustomInfoView()
     }
 }
 

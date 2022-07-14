@@ -14,11 +14,11 @@ class CheckApp: ObservableObject {
     
     static let shared = CheckApp()
     
-    @Published var appNameInPayload:String = ""
-    @Published var payloadPath:URL = URL(fileURLWithPath: "")
+    var appNameInPayload:String = ""
+    var payloadPath:URL = URL(fileURLWithPath: "")
     
     @Published var fileName:String = ""
-    @Published var filePath:String = ""
+    var filePath:String = ""
     
     var destination = URL(fileURLWithPath: "")
     var fileDir = URL(fileURLWithPath: "")
@@ -26,14 +26,14 @@ class CheckApp: ObservableObject {
     // App Info vars
     var config: [String: Any]?
     var InfoPlistPath = URL(string: "")
-    @Published var app_name:String = ""
+    var app_name:String = ""
     @Published var app_bundle:String = ""
-    @Published var app_version:String = ""
-    @Published var app_min_ios:String = ""
-    @Published var app_author:String = ""
+    var app_version:String = ""
+    var app_min_ios:String = ""
+    var app_author:String = ""
     
-    @Published var app_executable:String? = nil
-    @Published var validInfoPlist:Bool = false
+    var app_executable:String? = nil
+    var validInfoPlist:Bool = false
     // ----------------------------
     
     func extractIpa() {
