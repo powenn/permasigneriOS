@@ -22,6 +22,8 @@ struct SignView: View {
     @State var showInFilzaAlert:Bool = false
     @State var canShowinFilza:Bool = false
     
+    @State var ShowCustomInfo:Bool = false
+    
     func signFailedAlert(title:String, message:String) {
         checkapp.fileName = ""
         alertTitle = title
@@ -42,41 +44,50 @@ struct SignView: View {
                     isImporting = true
                 }
             }, label: {Text("Select File")})
-                .alert(isPresented: $showAlert) {
-                    Alert(title: Text(alertTitle), message: Text(alertMeaasge), dismissButton: .default(Text("OK")))
-                }
-                .fileImporter(
-                    isPresented: $isImporting,
-                    allowedContentTypes: [UTType(filenameExtension: "ipa")!],
-                    allowsMultipleSelection: false
-                ) { result in
-                    do {
-                        let fileUrl = try result.get()
-                        checkapp.fileName = fileUrl.first!.lastPathComponent
-                        checkapp.filePath = fileUrl.first!.path
-                        
-                        checkapp.extractIpa()
-                        
-                        if checkapp.checkIsIpaPayloadValid() {
-                            checkapp.InfoPlistPath = checkapp.payloadPath.appendingPathComponent("\(checkapp.appNameInPayload)/Info.plist")
-                            if checkapp.checkInfoPlist() {
-                                checkapp.getInfoPlistValue()
-                                if checkapp.validInfoPlist {
-                                    print("valid InfoPlist")
-                                } else {
-                                    checkapp.app_executable = nil
-                                    signFailedAlert(title: "No executable found.", message: "Missing executable in Info.plist")
-                                }
+            .alert(isPresented: $showAlert) {
+                Alert(title: Text(alertTitle), message: Text(alertMeaasge), dismissButton: .default(Text("OK")))
+            }
+            .disabled(progress.ProgressingDescribe != "")
+            .fileImporter(
+                isPresented: $isImporting,
+                allowedContentTypes: [UTType(filenameExtension: "ipa")!],
+                allowsMultipleSelection: false
+            ) { result in
+                do {
+                    let fileUrl = try result.get()
+                    checkapp.fileName = fileUrl.first!.lastPathComponent
+                    checkapp.filePath = fileUrl.first!.path
+                    
+                    checkapp.extractIpa()
+                    
+                    if checkapp.checkIsIpaPayloadValid() {
+                        checkapp.InfoPlistPath = checkapp.payloadPath.appendingPathComponent("\(checkapp.appNameInPayload)/Info.plist")
+                        if checkapp.checkInfoPlist() {
+                            checkapp.getInfoPlistValue()
+                            if checkapp.validInfoPlist {
+                                print("valid InfoPlist")
+                            } else {
+                                checkapp.app_executable = nil
+                                signFailedAlert(title: "No executable found.", message: "Missing executable in Info.plist")
                             }
-                        } else {
-                            signFailedAlert(title: "IPA is not valid!", message: "The file might have missing parts\nor invalid contents")
                         }
-                        isImporting = false
-                    } catch {
-                        print(error.localizedDescription)
+                    } else {
+                        signFailedAlert(title: "IPA is not valid!", message: "The file might have missing parts\nor invalid contents")
                     }
+                    isImporting = false
+                } catch {
+                    print(error.localizedDescription)
                 }
-                .padding()
+            }
+            .padding()
+            
+            Button(action: {
+                ShowCustomInfo.toggle()
+            }, label: {
+                Text("Custom Info")
+            }).sheet(isPresented: $ShowCustomInfo, content: {
+                CustomInfoView()
+            }).disabled(checkapp.fileName == "" || progress.ProgressingDescribe != "" || isImporting)
             
             Button(action: {
                 DispatchQueue.global(qos: .userInitiated).async {
@@ -115,15 +126,50 @@ struct SignView: View {
                 ProgressView(label: {
                     Text("Importing iPA file")
                 })
+                .padding()
             }
         }
         .padding()
     }
 }
 
+
+struct CustomInfoView: View {
+    @StateObject var checkapp: CheckApp = .shared
+    @StateObject var progress: Progress = .shared
+    @Environment(\.presentationMode) var presentationMode
+    
+    var body: some View {
+        VStack{
+            VStack(alignment: .leading) {
+                Text("Customize App Bundle")
+                TextField("App Bundle", text: $checkapp.app_bundle)
+                    .textFieldStyle(.roundedBorder)
+                Text("Customize deb file description\n( Leave blank to use default )")
+                TextField("Description", text: $progress.CustomDebDescription)
+                    .textFieldStyle(.roundedBorder)
+                Text("You can click TextField to dismiss keyboard")
+                    .font(.footnote)
+                    .foregroundColor(.gray)
+            }.padding()
+            Button(action: {
+                self.presentationMode.wrappedValue.dismiss()
+            }, label: {
+                Text("Done")
+            }).padding()
+        }
+        .padding()
+        .onTapGesture {
+            hideKeyboard()
+        }
+    }
+}
+
+
 struct SignView_Previews: PreviewProvider {
     static var previews: some View {
         SignView()
+        CustomInfoView()
     }
 }
 

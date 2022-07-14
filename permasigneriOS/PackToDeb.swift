@@ -15,6 +15,7 @@ class Progress: ObservableObject {
     @Published var OutputDebFilePath = ""
 //    @Published var Percent = 1.0
     @Published var ProgressingDescribe = ""
+    @Published var CustomDebDescription = ""
     
     func resetDebFolder() {
         try? FileManager.default.removeItem(at: tmpDirectory.appendingPathComponent("deb"))
@@ -50,6 +51,9 @@ class Progress: ObservableObject {
                 newControlFileText = newControlFileText.replacingOccurrences(of: "{APP_VERSION}", with: CheckApp.shared.app_version)
                 newControlFileText = newControlFileText.replacingOccurrences(of: "{APP_MIN_IOS}", with: CheckApp.shared.app_min_ios)
                 newControlFileText = newControlFileText.replacingOccurrences(of: "{APP_AUTHOR}", with: CheckApp.shared.app_author)
+                if CustomDebDescription != "" {
+                    newControlFileText = newControlFileText.replacingOccurrences(of: "App resigned with Linus Henze's CoreTrust bypass so it doesn't expire.", with: CustomDebDescription)
+                }
                 try newControlFileText.write(to: DebDebianDirectory.appendingPathComponent("control"), atomically: true, encoding: .utf8)
             }
             catch {
@@ -108,10 +112,9 @@ class Progress: ObservableObject {
         // app_executable
         AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)/\(CheckApp.shared.app_executable!)")
         
-        
-        
-        
+        // -------------------------- //
         AuxiliaryExecute.local.bash(command: "chmod -R 04755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(CheckApp.shared.appNameInPayload)")
+        // -------------------------- //
     }
     
     func SignAppWithLdid() {
