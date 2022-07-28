@@ -24,6 +24,7 @@
 		B57382CE2874755500133E34 /* AuxiliaryExecute in Frameworks */ = {isa = PBXBuildFile; productRef = B57382CD2874755500133E34 /* AuxiliaryExecute */; };
 		B57382D328751D0E00133E34 /* DirectoryPath.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57382D228751D0E00133E34 /* DirectoryPath.swift */; };
 		B57382D52875586D00133E34 /* CheckApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57382D42875586D00133E34 /* CheckApp.swift */; };
+		B575D397289229A000377919 /* Plist.sh in Resources */ = {isa = PBXBuildFile; fileRef = B575D3962892299F00377919 /* Plist.sh */; };
 		B5A1F7772875C46F002176A4 /* PackToDeb.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A1F7762875C46F002176A4 /* PackToDeb.swift */; };
 		B5A1F77E2876A9BC002176A4 /* OpenInFilza.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A1F77D2876A9BC002176A4 /* OpenInFilza.swift */; };
 		B5A1F7822877AD53002176A4 /* entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = B5A1F7812877AD53002176A4 /* entitlements.plist */; };
@@ -50,6 +51,7 @@
 		B57382C8287447EB00133E34 /* AppInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppInfoView.swift; sourceTree = "<group>"; };
 		B57382D228751D0E00133E34 /* DirectoryPath.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectoryPath.swift; sourceTree = "<group>"; };
 		B57382D42875586D00133E34 /* CheckApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckApp.swift; sourceTree = "<group>"; };
+		B575D3962892299F00377919 /* Plist.sh */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.script.sh; path = Plist.sh; sourceTree = "<group>"; };
 		B5A1F7762875C46F002176A4 /* PackToDeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackToDeb.swift; sourceTree = "<group>"; };
 		B5A1F77D2876A9BC002176A4 /* OpenInFilza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInFilza.swift; sourceTree = "<group>"; };
 		B5A1F7812877AD53002176A4 /* entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
@@ -116,6 +118,7 @@
 		B57382A82874191700133E34 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				B575D3962892299F00377919 /* Plist.sh */,
 				B5A1F7812877AD53002176A4 /* entitlements.plist */,
 				B57382AA2874191700133E34 /* postinst */,
 				B57382AB2874191700133E34 /* postrm */,
@@ -210,6 +213,7 @@
 				B57382A62874178600133E34 /* Launch Screen.storyboard in Resources */,
 				B573829E2874162700133E34 /* Preview Assets.xcassets in Resources */,
 				B573829B2874162700133E34 /* Assets.xcassets in Resources */,
+				B575D397289229A000377919 /* Plist.sh in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,7 +361,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"permasigneriOS/Preview Content\"";
 				DEVELOPMENT_TEAM = L4LN9U3ZS7;
 				ENABLE_PREVIEWS = YES;
@@ -390,7 +394,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 10;
+				CURRENT_PROJECT_VERSION = 11;
 				DEVELOPMENT_ASSET_PATHS = "\"permasigneriOS/Preview Content\"";
 				DEVELOPMENT_TEAM = L4LN9U3ZS7;
 				ENABLE_PREVIEWS = YES;
