@@ -67,7 +67,7 @@ class Progress: ObservableObject {
             try? FileManager.default.copyItem(at: postinstFileURL, to: DebDebianDirectory.appendingPathComponent("postinst"))
             do {
                 var newPostinstFileText = try String(contentsOf: postinstFileURL, encoding: .utf8)
-                newPostinstFileText = newPostinstFileText.replacingOccurrences(of: "{APP_NAME}", with: CheckApp.shared.custom_app_name)
+                newPostinstFileText = newPostinstFileText.replacingOccurrences(of: "{APP_NAME}", with: CheckApp.shared.custom_app_executable)
                 try newPostinstFileText.write(to: DebDebianDirectory.appendingPathComponent("postinst"), atomically: true, encoding: .utf8)
             }
             catch {
@@ -79,7 +79,7 @@ class Progress: ObservableObject {
             try? FileManager.default.copyItem(at: postrmFileURL, to: DebDebianDirectory.appendingPathComponent("postrm"))
             do {
                 var newPostrmFileText = try String(contentsOf: postrmFileURL, encoding: .utf8)
-                newPostrmFileText = newPostrmFileText.replacingOccurrences(of: "{APP_NAME}", with: CheckApp.shared.custom_app_name)
+                newPostrmFileText = newPostrmFileText.replacingOccurrences(of: "{APP_NAME}", with: CheckApp.shared.custom_app_executable)
                 try newPostrmFileText.write(to: DebDebianDirectory.appendingPathComponent("postrm"), atomically: true, encoding: .utf8)
             }
             catch {
@@ -103,30 +103,26 @@ class Progress: ObservableObject {
         }
         // Info.plist
         // get Info in plist file
-        if CheckApp.shared.app_bundle != CheckApp.shared.custom_app_bundle {
-            AppNameDir = CheckApp.shared.appNameInPayload.replacingOccurrences(of: CheckApp.shared.app_name, with: CheckApp.shared.custom_app_name)
-            let InfoPlistPathInTmpPayload = CheckApp.shared.payloadPath.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Info.plist")
-            if let PlistScriptFileURL = Bundle.main.url(forResource: "Plist", withExtension: "sh") {
-                try? FileManager.default.copyItem(at: PlistScriptFileURL, to: tmpDirectory.appendingPathComponent("Plist.sh"))
-                do {
-                    var newPlistScriptText = try String(contentsOf: PlistScriptFileURL, encoding: .utf8)
-                    newPlistScriptText = newPlistScriptText.replacingOccurrences(of: "{MY_PLIST_PATH}", with: InfoPlistPathInTmpPayload.path)
-                    newPlistScriptText = newPlistScriptText.replacingOccurrences(of: "{OLD_VALUE}", with: CheckApp.shared.app_bundle)
-                    newPlistScriptText = newPlistScriptText.replacingOccurrences(of: "{NEW_VALUE}", with: CheckApp.shared.custom_app_bundle)
-                    try newPlistScriptText.write(to: tmpDirectory.appendingPathComponent("Plist.sh"), atomically: true, encoding: .utf8)
-                }
-                catch {
-                    print(error.localizedDescription)
-                }
+        AppNameDir = CheckApp.shared.appNameInPayload.replacingOccurrences(of: CheckApp.shared.app_executable!, with: CheckApp.shared.custom_app_executable)
+        let InfoPlistPathInTmpPayload = CheckApp.shared.payloadPath.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Info.plist")
+        if let PlistScriptFileURL = Bundle.main.url(forResource: "Plist", withExtension: "sh") {
+            try? FileManager.default.copyItem(at: PlistScriptFileURL, to: tmpDirectory.appendingPathComponent("Plist.sh"))
+            do {
+                var newPlistScriptText = try String(contentsOf: PlistScriptFileURL, encoding: .utf8)
+                newPlistScriptText = newPlistScriptText.replacingOccurrences(of: "{MY_PLIST_PATH}", with: InfoPlistPathInTmpPayload.path)
+                newPlistScriptText = newPlistScriptText.replacingOccurrences(of: "{OLD_VALUE}", with: CheckApp.shared.app_bundle)
+                newPlistScriptText = newPlistScriptText.replacingOccurrences(of: "{NEW_VALUE}", with: CheckApp.shared.custom_app_bundle)
+                try newPlistScriptText.write(to: tmpDirectory.appendingPathComponent("Plist.sh"), atomically: true, encoding: .utf8)
             }
-            let plistDict = NSMutableDictionary(contentsOfFile: InfoPlistPathInTmpPayload.path)
-            plistDict!.setObject(CheckApp.shared.custom_app_name, forKey: "CFBundleDisplayName" as NSCopying)
-            plistDict!.write(toFile: CheckApp.shared.payloadPath.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Info.plist").path, atomically: false)
-            
-            AuxiliaryExecute.local.bash(command: "bash /var/mobile/Documents/permasigneriOS/tmp/Plist.sh")
-        } else {
-            AppNameDir = CheckApp.shared.appNameInPayload
+            catch {
+                print(error.localizedDescription)
+            }
         }
+        let plistDict = NSMutableDictionary(contentsOfFile: InfoPlistPathInTmpPayload.path)
+        plistDict!.setObject(CheckApp.shared.custom_app_name, forKey: "CFBundleDisplayName" as NSCopying)
+        plistDict!.write(toFile: CheckApp.shared.payloadPath.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Info.plist").path, atomically: false)
+        
+        AuxiliaryExecute.local.bash(command: "bash /var/mobile/Documents/permasigneriOS/tmp/Plist.sh")
     }
     
     func copyAppContent() {

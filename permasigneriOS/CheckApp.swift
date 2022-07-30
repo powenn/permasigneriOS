@@ -32,7 +32,7 @@ class CheckApp: ObservableObject {
     var app_version:String = ""
     var app_min_ios:String = ""
     var app_author:String = ""
-    
+    @Published var custom_app_executable:String = ""
     var app_executable:String? = nil
     var validInfoPlist:Bool = false
     // ----------------------------
@@ -65,8 +65,10 @@ class CheckApp: ObservableObject {
                     app_version = config?["CFBundleShortVersionString"] as! String
                     app_min_ios = config?["MinimumOSVersion"] as! String? ?? "14.0"
                     app_author = app_bundle.components(separatedBy: ".")[1]
-                    custom_app_bundle = app_bundle
+
                     custom_app_name = app_name
+                    custom_app_bundle = app_bundle
+                    custom_app_executable = app_executable!
                     validInfoPlist = true
                 } else {
                     validInfoPlist = false
