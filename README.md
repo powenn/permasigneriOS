@@ -24,6 +24,7 @@ You can check [permasigner](https://github.com/itsnebulalol/permasigner) for det
 - [zhuowei](https://github.com/zhuowei) for the original Taurine script
 - [Lakr233](https://github.com/Lakr233) for helping me and some codes reference
 - [itsnebulalol](https://github.com/itsnebulalol) for permasigner project
+- [fullpwn](https://github.com/fullpwn) for fixing spelling
 
 [1]:https://powenn.github.io/PowenRepo/assets/com.powen.permasignerios/screenshot/01.png
 [2]:https://powenn.github.io/PowenRepo/assets/com.powen.permasignerios/screenshot/02.png
