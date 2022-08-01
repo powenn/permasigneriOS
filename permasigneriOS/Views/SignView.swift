@@ -33,7 +33,7 @@ struct SignView: View {
     
     var body: some View {
         VStack {
-            Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No .ipa file selected.")
+            Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No .ipa file selected")
             Button(action: {
                 if isImporting {
                     isImporting = false
