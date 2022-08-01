@@ -44,6 +44,7 @@ struct CreditsView: View {
             Section(header: Text("Help and code contribution")) {
                 GitHubView(name: "Lakr233", username: "Lakr233")
                 GitHubView(name: "Paisseon", username: "Paisseon")
+                GitHubView(name: "fullpwn", username: "fullpwn")
             }
             
             

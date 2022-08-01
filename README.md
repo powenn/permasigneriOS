@@ -6,17 +6,18 @@ You can get .deb files at [Release](https://github.com/powenn/permasigneriOS/rel
 
 Or add the [Repo](https://powenn.github.io/PowenRepo/) to package manager
 
-You can check [permasigner](https://github.com/itsnebulalol/permasigner) for details about what is permanet sign
+You can check [permasigner](https://github.com/itsnebulalol/permasigner) for details about what is permanent sign.
 
-## ScreenShots
+## Screenshots
 
 ![Demo photo][1]
 
 [More...](https://powenn.github.io/PowenRepo/depiction/web/com.powen.permasignerios.html)
 
-## Contributors
+## Contributors of the project
 
-[Contributors List](https://github.com/powenn/permasigneriOS/graphs/contributors)
+- [Paisseon](https://github.com/Paisseon) for credits view and progress bar
+- [fullpwn](https://github.com/fullpwn) for fixing spelling
 
 ## Credits 
 

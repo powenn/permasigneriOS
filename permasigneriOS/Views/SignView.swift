@@ -33,7 +33,7 @@ struct SignView: View {
     
     var body: some View {
         VStack {
-            Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No ipa file selected")
+            Text(checkapp.fileName != "" ? "\(checkapp.fileName)" : "No .ipa file selected")
             Button(action: {
                 if isImporting {
                     isImporting = false
@@ -65,14 +65,14 @@ struct SignView: View {
                         if checkapp.checkInfoPlist() {
                             checkapp.getInfoPlistValue()
                             if checkapp.validInfoPlist {
-                                print("valid InfoPlist")
+                                print("Valid Info.plist")
                             } else {
                                 checkapp.app_executable = nil
                                 signFailedAlert(title: "No executable found.", message: "Missing executable in Info.plist")
                             }
                         }
                     } else {
-                        signFailedAlert(title: "IPA is not valid!", message: "The file might have missing parts\nor invalid contents")
+                        signFailedAlert(title: "iPA is not valid!", message: "The file may have missing parts\nor invalid contents")
                     }
                     isImporting = false
                 } catch {
@@ -101,7 +101,7 @@ struct SignView: View {
                             showInFilzaAlert.toggle()
                             
                         } else {
-                            signFailedAlert(title: "Sign Failed", message: "Please try others iPA files")
+                            signFailedAlert(title: "Sign Failed", message: "Please try other .ipa files")
                         }
                     }
                 }
@@ -109,7 +109,7 @@ struct SignView: View {
             .alert(isPresented: $showInFilzaAlert ){
                 Alert(
                     title: Text(canShowinFilza ? "Done" : "Ohh no"),
-                    message: Text(canShowinFilza ? "View the file now ?" : "You need Filza to view the file"),
+                    message: Text(canShowinFilza ? "View the file now?" : "You need Filza to view the file"),
                     primaryButton: .default(Text("Okay")) {
                         if canShowinFilza {
                             UIApplication.shared.open(URL(string: "filza://\(progress.OutputDebFilePath)")!)
@@ -151,10 +151,10 @@ struct CustomInfoView: View {
                 Text("Customize App Bundle")
                 TextField("App Bundle", text: $checkapp.custom_app_bundle)
                     .textFieldStyle(.roundedBorder)
-                Text("Customize deb file description\n( Leave blank to use default )")
+                Text("Customize .deb file description\n( Leave blank to use default )")
                 TextField("Description", text: $progress.CustomDebDescription)
                     .textFieldStyle(.roundedBorder)
-                Text("\nIf you want to prevent original apps being replaced\nRecommended to modify like this\n\nExampleApp2\nExampleApp2\ncom.example.exampleapp2\n\nWARNING:PLEASE MAKE SURE THE NAME\nIS NOT AS SAME AS THE SYSTEM APP NAMES")
+                Text("\nIf you want to prevent original apps being replaced,\nIt is recommended to modify like this\n\nExampleApp2\nExampleApp2\ncom.example.exampleapp2\n\nWARNING:PLEASE MAKE SURE THE NAME\nIS NOT AS SAME AS THE SYSTEM APP NAMES")
                     .font(.footnote)
                     .foregroundColor(.gray)
             }.padding()
