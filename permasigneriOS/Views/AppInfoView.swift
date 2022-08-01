@@ -44,7 +44,7 @@ struct AppInfoView: View {
                 Text("Open Package Folder in Filza")
             })
             .alert(isPresented: $showCantOpenInFilza, content: {
-                Alert(title: Text("Ohh no"), message: Text("You need Filza to view the file"),dismissButton: .default(Text("Okay")))
+                Alert(title: Text("Oh no."), message: Text("You need Filza to view the file"),dismissButton: .default(Text("Okay")))
             })
             
             Button(action: {
@@ -55,9 +55,9 @@ struct AppInfoView: View {
                 Text("Clear All Packages")
             })
             .alert(isPresented: $cleanFolderDone,content: {
-                Alert(title: Text("Done"), message: Text("All packages in Package Folder have been removed"), dismissButton: .default(Text("Okay")))
+                Alert(title: Text("Done"), message: Text("All packages in Package Folder have been removed."), dismissButton: .default(Text("Okay")))
             })
-            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS\n\nPlease be patient during the sign process,\nespecially signing a complex app with\nlots of frameworks\n\nIf having problems, please check Github issues before asking\n\nThis is iOS ported of itsnebulalol's permasigner"), content: {})
+            Section(footer: Text("Document Folder Path\n/var/mobile/Documents/permasigneriOS\n\nPlease be patient during the sign process,\nespecially signing a complex app with\nlots of frameworks\n\nIf you're having problems, please check Github issues before asking\n\nThis is iOS ported of itsnebulalol's permasigner"), content: {})
         }
     }
 }
