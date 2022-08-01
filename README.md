@@ -8,7 +8,7 @@ Or add the [Repo](https://powenn.github.io/PowenRepo/) to package manager
 
 You can check [permasigner](https://github.com/itsnebulalol/permasigner) for details about what is permasigner.
 
-## ScreenShots
+## Screenshots
 
 ![Demo photo][1]
 
