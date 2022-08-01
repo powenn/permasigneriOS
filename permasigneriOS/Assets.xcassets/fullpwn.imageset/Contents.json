@@ -1,17 +1,17 @@
 {
   "images" : [
     {
-      "filename" : "newish.png",
+      "filename" : "newishPFP.png",
       "idiom" : "universal",
       "scale" : "1x"
     },
     {
-      "filename" : "newish-1.png",
+      "filename" : "newishPFP-1.png",
       "idiom" : "universal",
       "scale" : "2x"
     },
     {
-      "filename" : "newish-2.png",
+      "filename" : "newishPFP-2.png",
       "idiom" : "universal",
       "scale" : "3x"
     }
