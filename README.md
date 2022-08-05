@@ -8,6 +8,15 @@ Or add the [Repo](https://powenn.github.io/PowenRepo/) to package manager
 
 You can check [permasigner](https://github.com/itsnebulalol/permasigner) for details about what is permanent sign.
 
+## Localizations support 
+
+Check [permasigneriOS-Localizations](https://github.com/powenn/permasigneriOS-Localizations)
+
+Just create the LocaleCode.lproj pull request to contribute it
+
+The release will also upload to [Repo](https://powenn.github.io/PowenRepo/)
+
+
 ## Screenshots
 
 ![Demo photo][1]
