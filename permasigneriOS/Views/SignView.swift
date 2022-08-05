@@ -108,7 +108,7 @@ struct SignView: View {
             }, label: {Text(progress.ProgressingDescribe == "" ? "Permanent sign" : progress.ProgressingDescribe)})
             .alert(isPresented: $showInFilzaAlert ){
                 Alert(
-                    title: Text(canShowinFilza ? "Done" : "Ohh no"),
+                    title: Text(canShowinFilza ? "Done" : "Oh no"),
                     message: Text(canShowinFilza ? "View the file now?" : "You need Filza to view the file"),
                     primaryButton: .default(Text("Okay")) {
                         if canShowinFilza {
