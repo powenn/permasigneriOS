@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ContentView: View {
-    
+    @Environment(\.layoutDirection) var direction
     var body: some View {
         TabView{
             SignView()
@@ -24,6 +24,7 @@ struct ContentView: View {
                     Label("Credits", systemImage: "person.3.fill")
                 })
         }
+        .environment(\.layoutDirection, direction)
         .onAppear(perform: {
             // Setup basic path and tmp **DirectoryPath.Swift**
             setPathAndTmp()
