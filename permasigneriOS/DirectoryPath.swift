@@ -9,6 +9,8 @@ import UIKit
 
 // Referencee from Lakr Aream on 2022/1/7.
 
+let signerAppPath = URL(fileURLWithPath: "/Applications/permasigneriOS.app")
+
 let availableDirectories = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
 
 let documentsDirectory = availableDirectories[0].appendingPathComponent("permasigneriOS")

@@ -55,6 +55,7 @@
 		B5A1F7762875C46F002176A4 /* PackToDeb.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PackToDeb.swift; sourceTree = "<group>"; };
 		B5A1F77D2876A9BC002176A4 /* OpenInFilza.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenInFilza.swift; sourceTree = "<group>"; };
 		B5A1F7812877AD53002176A4 /* entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = entitlements.plist; sourceTree = "<group>"; };
+		B5D292E728A5EF42006E0151 /* BuildDebForTest.command */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = BuildDebForTest.command; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,6 +75,7 @@
 			isa = PBXGroup;
 			children = (
 				B57382C4287421D800133E34 /* BuildDeb.command */,
+				B5D292E728A5EF42006E0151 /* BuildDebForTest.command */,
 				B57382952874162300133E34 /* permasigneriOS */,
 				B57382942874162300133E34 /* Products */,
 			);
@@ -361,7 +363,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"permasigneriOS/Preview Content\"";
 				DEVELOPMENT_TEAM = L4LN9U3ZS7;
 				ENABLE_PREVIEWS = YES;
@@ -394,7 +396,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
+				CURRENT_PROJECT_VERSION = 2;
 				DEVELOPMENT_ASSET_PATHS = "\"permasigneriOS/Preview Content\"";
 				DEVELOPMENT_TEAM = L4LN9U3ZS7;
 				ENABLE_PREVIEWS = YES;

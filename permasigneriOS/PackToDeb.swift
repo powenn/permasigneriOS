@@ -13,7 +13,6 @@ class Progress: ObservableObject {
     static let shared = Progress()
     
     var OutputDebFilePath = ""
-    //    @Published var Percent = 1.0
     @Published var ProgressingDescribe = ""
     @Published var CustomDebDescription = ""
     
@@ -122,7 +121,7 @@ class Progress: ObservableObject {
         plistDict!.setObject(CheckApp.shared.custom_app_name, forKey: "CFBundleDisplayName" as NSCopying)
         plistDict!.write(toFile: CheckApp.shared.payloadPath.appendingPathComponent("\(CheckApp.shared.appNameInPayload)/Info.plist").path, atomically: false)
         
-        AuxiliaryExecute.local.bash(command: "bash /var/mobile/Documents/permasigneriOS/tmp/Plist.sh")
+        AuxiliaryExecute.local.bash(command: "bash \(tmpDirectory.path)/Plist.sh")
     }
     
     func copyAppContent() {
@@ -131,22 +130,23 @@ class Progress: ObservableObject {
     
     func ChangeDebPermisson() {
         // Scripts parts
-        AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/DEBIAN/postrm")
-        AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/DEBIAN/postinst")
-        // app_executable
-        AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)/\(CheckApp.shared.app_executable!)")
+        // /var/mobile/Documents/permasigneriOS/tmp/deb/DEBIAN/*
+        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebDebianDirectory)/postrm")
+        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebDebianDirectory)/postinst)")
         
-        // -------------------------- //
-        AuxiliaryExecute.local.bash(command: "chmod -R 04755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)")
-        // -------------------------- //
+        // app_executable
+        // /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/ex.app/ex
+        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebApplicationsDirectory.path)/\(AppNameDir)/\(CheckApp.shared.app_executable!)")
+        
+        AuxiliaryExecute.local.bash(command: "chmod -R 04755 \(DebApplicationsDirectory.path)/\(AppNameDir)")
     }
     
     func SignAppWithLdid() {
-        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)/\(CheckApp.shared.app_executable!)")
-        AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)/\(CheckApp.shared.app_executable!)")
+        AuxiliaryExecute.local.bash(command: "ldid -S\(tmpDirectory.path)/entitlements.plist -M -K\(signerAppPath.path)/dev_certificate.p12 \(DebApplicationsDirectory.path)/\(AppNameDir)/\(CheckApp.shared.app_executable!)")
+        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebApplicationsDirectory.path)/\(AppNameDir)/\(CheckApp.shared.app_executable!)")
         
         // ldid sign example.app
-        AuxiliaryExecute.local.bash(command: "ldid -S/var/mobile/Documents/permasigneriOS/tmp/entitlements.plist -M -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)")
+        AuxiliaryExecute.local.bash(command: "ldid -S\(tmpDirectory.path)/entitlements.plist -M -K\(signerAppPath.path)/dev_certificate.p12 \(DebApplicationsDirectory.path)/\(AppNameDir)")
         
     }
     
@@ -161,16 +161,13 @@ class Progress: ObservableObject {
                 if content.hasSuffix(".framework") {
                     frameworkBinaryName = content.replacingOccurrences(of: ".framework", with: "")
                     
-                    
                     if FileManager.default.fileExists(atPath: FrameWorkFolderPath.appending("\(content)/\(frameworkBinaryName)")) {
-                        AuxiliaryExecute.local.bash(command: "ldid -K/Applications/permasigneriOS.app/dev_certificate.p12 \(FrameWorkFolderPath)/\(content)/\(frameworkBinaryName)")
+                        AuxiliaryExecute.local.bash(command: "ldid -K\(signerAppPath.path)/dev_certificate.p12 \(FrameWorkFolderPath)/\(content)/\(frameworkBinaryName)")
                     }
-                    
-                    
                 }
                 if content.hasSuffix(".dylib"){
-                    AuxiliaryExecute.local.bash(command: "ldid -K/Applications/permasigneriOS.app/dev_certificate.p12 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)/Frameworks/\(content)")
-                    AuxiliaryExecute.local.bash(command: "chmod 0755 /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/\(AppNameDir)/Frameworks/\(content)")
+                    AuxiliaryExecute.local.bash(command: "ldid -K\(signerAppPath.path)/dev_certificate.p12 \(DebApplicationsDirectory.path)/\(AppNameDir)/Frameworks/\(content)")
+                    AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebApplicationsDirectory.path)/\(AppNameDir)/Frameworks/\(content)")
                 }
             }
         }
@@ -178,7 +175,7 @@ class Progress: ObservableObject {
     
     
     func PackToDeb() {
-        AuxiliaryExecute.local.bash(command: "dpkg-deb -Zxz --root-owner-group -b /var/mobile/Documents/permasigneriOS/tmp/deb /var/mobile/Documents/permasigneriOS/Package/\(CheckApp.shared.fileName.replacingOccurrences(of: ".ipa", with: "")).deb")
+        AuxiliaryExecute.local.bash(command: "dpkg-deb -Zxz --root-owner-group -b \(tmpDirectory.path)/deb \(OutputPackageDirectory.path)/\(CheckApp.shared.fileName.replacingOccurrences(of: ".ipa", with: "")).deb")
     }
     
     func CheckDebBuild() -> Bool {
@@ -190,39 +187,30 @@ class Progress: ObservableObject {
     }
     
     func permanentSignButtonFunc() {
-        //        Percent = 0.0
         ProgressingDescribe = "[1/8] Clearing folder"
         resetDebFolder()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[2/8] Preparing folder"
         prepareDebFolder()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[3/8] Copying Resources"
         copyResourcesAndReplace()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[4/8] Copying app contents"
         copyAppContent()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[5/8] Setting permissions"
         ChangeDebPermisson()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[6/8] Signing with ldid"
         SignAppWithLdid()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[7/8] Checking frameworks"
         CheckFrameWorkDirExist()
         
-        //        Percent += 0.125
         ProgressingDescribe = "[8/8] Packing to deb"
         PackToDeb()
         
         ProgressingDescribe = ""
-        //        Percent = 1.0
     }
 }

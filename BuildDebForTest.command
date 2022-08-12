@@ -6,19 +6,15 @@ cd "$(dirname "$0")"
 
 WORKING_LOCATION="$(pwd)"
 APPLICATION_NAME="permasigneriOS"
+TIMESTAMP="$(date +%s)"
 
- TIMESTAMP="$(date +%s)"
-# ==============================================================================
-
-rm -rf build || true
+rm -rf build *.deb || true
 mkdir build
 
 cd build
 
 rm -rf dpkg || true
 mkdir dpkg
-
-# ==============================================================================
 
 echo "[*] starting build..."
 
@@ -30,9 +26,6 @@ xcodebuild -project "$WORKING_LOCATION/$APPLICATION_NAME.xcodeproj" \
     clean build \
     ONLY_ACTIVE_ARCH="NO" \
     CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO CODE_SIGN_ENTITLEMENTS="" CODE_SIGNING_ALLOWED="NO" \
-
-echo "[i] build passed, removing temp log file..."
-rm -f "$TEMP_LOG_FILE"
 
 # copy .app out of DerivedData
 DD_APP_PATH="$WORKING_LOCATION/build/DerivedDataApp/Build/Products/Release-iphoneos/$APPLICATION_NAME.app"
@@ -54,8 +47,6 @@ ldid -S"$WORKING_LOCATION/Entitlements.plist" "$TARGET_APP/$APPLICATION_NAME"
 CONTROL_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleShortVersionString" "$TARGET_APP/Info.plist")"
 BUILD_VERSION="$(/usr/libexec/PlistBuddy -c "Print :CFBundleVersion" "$TARGET_APP/Info.plist")"
 
-# ==============================================================================
-
 
 echo "[*] preparing package layout..."
 
@@ -70,16 +61,13 @@ sed -i '' "s/@@VERSION@@/$CONTROL_VERSION.$BUILD_VERSION-TEST/g" ./DEBIAN/contro
 cd "$WORKING_LOCATION/build/dpkg"
 chmod -R 0755 DEBIAN
 
-echo "[*] verifying binary architectures..."
-
-cd "$WORKING_LOCATION/build/dpkg"
-FILE_LIST=$(find . -type f)
-
 echo "[*] packaging..."
 
 cd "$WORKING_LOCATION/build/dpkg"
 PKG_NAME="com.powen.permasignerios.$CONTROL_VERSION.$BUILD_VERSION-$TIMESTAMP.deb"
 dpkg-deb -b . "../$PKG_NAME"
 
+mv "$WORKING_LOCATION/build/$PKG_NAME" "$WORKING_LOCATION/$PKG_NAME"
+
 # print done
-echo "Package is at $WORKING_LOCATION/build/$PKG_NAME"
+echo "Package is at $WORKING_LOCATION/$PKG_NAME"
