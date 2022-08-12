@@ -131,8 +131,8 @@ class Progress: ObservableObject {
     func ChangeDebPermisson() {
         // Scripts parts
         // /var/mobile/Documents/permasigneriOS/tmp/deb/DEBIAN/*
-        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebDebianDirectory)/postrm")
-        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebDebianDirectory)/postinst)")
+        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebDebianDirectory.path)/postrm")
+        AuxiliaryExecute.local.bash(command: "chmod 0755 \(DebDebianDirectory.path)/postinst)")
         
         // app_executable
         // /var/mobile/Documents/permasigneriOS/tmp/deb/Applications/ex.app/ex
