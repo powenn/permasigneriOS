@@ -19,10 +19,6 @@ struct ContentView: View {
                 .tabItem({
                     Label("App Info", systemImage: "info.circle.fill")
                 })
-            CreditsView()
-                .tabItem({
-                    Label("Credits", systemImage: "person.3.fill")
-                })
         }
         .environment(\.layoutDirection, direction)
         .onAppear(perform: {

@@ -13,6 +13,7 @@ struct AppInfoView: View {
     
     @State var cleanFolderDone:Bool = false
     @State var showCantOpenInFilza:Bool = false
+    @State var showCredits:Bool = false
     
     var body: some View {
         Form{
@@ -33,6 +34,10 @@ struct AppInfoView: View {
                         Text("Check issues on Github")
                 })
             }
+            Button(action: {showCredits.toggle()}, label: {
+                Text("Credits")
+            })
+            .sheet(isPresented: $showCredits, content: {CreditsView()})
             Button(action: {
                 if !checkFilza() {
                     showCantOpenInFilza.toggle()

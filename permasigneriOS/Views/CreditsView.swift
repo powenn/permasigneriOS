@@ -46,8 +46,6 @@ struct CreditsView: View {
                 GitHubView(name: "Paisseon", username: "Paisseon")
                 GitHubView(name: "fullpwn", username: "fullpwn")
             }
-            
-            
         }
     }
 }
