@@ -1,5 +1,14 @@
 # permasigneriOS
 
+<p align="center">
+  <a href="https://github.com/TechUnRestricted/windiskwriter/releases">
+    <img alt="Releases" src="https://img.shields.io/github/downloads/powenn/permasigneriOS/total">
+  </a>
+  <a href="#">
+    <img alt="Code Size in Bytes" src="https://img.shields.io/github/languages/code-size/powenn/permasigneriOS">
+  </a>
+</p>
+
 permasigner on iOS
 
 You can get .deb files at [Release](https://github.com/powenn/permasigneriOS/releases)
