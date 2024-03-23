@@ -1,7 +1,7 @@
 # permasigneriOS
 
 <p align="center">
-  <a href="https://github.com/TechUnRestricted/windiskwriter/releases">
+  <a href="https://github.com/powenn/permasigneriOS/releases">
     <img alt="Releases" src="https://img.shields.io/github/downloads/powenn/permasigneriOS/total">
   </a>
   <a href="#">
